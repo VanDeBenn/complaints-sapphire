@@ -1,0 +1,25 @@
+"use client";
+import React from "react";
+import { Header } from "../components/header";
+import { Footer } from "../components/footer";
+import ComplaintForm from "../components/complaintForm";
+import ComplaintCard from "../components/complaintCard";
+
+export const Page = () => {
+  return (
+    <>
+      <div className="min-h-screen">
+        <Header />
+
+        <div className="max-w-2xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+          <ComplaintForm />
+          <ComplaintCard />
+        </div>
+      </div>
+
+      <Footer />
+    </>
+  );
+};
+
+export default Page;
