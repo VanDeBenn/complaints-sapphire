@@ -25,7 +25,7 @@ Complaints is a Web3 application that enables users to submit and manage digital
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/complaints-sapphire
+git clone https://github.com/VanDeBenn/complaints-sapphire.git
 
 # Install dependencies
 cd complaints-sapphire
