@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Complaints DApp 📝
 
-## Getting Started
+A decentralized digital complaints platform built on Oasis Sapphire Testnet 🌐
 
-First, run the development server:
+## Overview 🎯
+
+Complaints is a Web3 application that enables users to submit and manage digital complaints in a decentralized, transparent, and secure manner using blockchain technology. Built on the Oasis Sapphire Testnet, it ensures privacy and immutability of complaint records.
+
+## Tech Stack 🛠️
+
+- **Frontend**: Next.js 15.1.0
+- **Smart Contract**: Solidity (deployed on Oasis Sapphire Testnet)
+- **Web3 Integration**: ethers.js v6
+- **Privacy Layer**: @oasisprotocol/sapphire-paratime
+- **Styling**: TailwindCSS
+- **Development**: TypeScript
+
+## Prerequisites 📋
+
+- Node.js
+- Metamask or compatible Web3 wallet
+- Oasis Sapphire Testnet network configured in your wallet
+
+## Installation 🚀
 
 ```bash
+# Clone the repository
+git clone https://github.com/yourusername/complaints-sapphire
+
+# Install dependencies
+cd complaints-sapphire
+npm install
+
+# Set up environment variables
+cp .env.example .env
+# Add your configuration to .env
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment Variables 🔒
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a `.env` file with:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+NEXT_PUBLIC_CONTRACT_ADDRESS=your_contract_address
+NEXT_PUBLIC_CONTRACT_ABI=your_contract_abi
+```
 
-## Learn More
+## Scripts 📜
 
-To learn more about Next.js, take a look at the following resources:
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run linting
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing 🤝
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Contributions are welcome! Please feel free to submit a Pull Request.
