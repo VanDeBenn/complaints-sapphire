@@ -8,10 +8,13 @@ import {
   RiCloseFill,
   RiSendPlaneFill,
 } from "react-icons/ri";
+import ShareDialog from "./share";
 
 export default function ComplaintCard() {
   const [complaintData, setComplaintData] = useState<any[]>([]);
   const [newComment, setNewComment] = useState<string>("");
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [complaintId, setComplaintId] = useState<any>();
 
   useEffect(() => {
     async function fetchData() {
@@ -84,9 +87,26 @@ export default function ComplaintCard() {
                     <p className="mt-2">{complaint[1]}</p>
                   </Link>
                   <div className="relative mt-3 flex items-start gap-3">
-                    <button className="flex text-gray-500 hover:text-blue-500">
-                      <RiShareForwardLine className="h-5 w-5" />
-                    </button>
+                    <div>
+                      <button
+                        onClick={() => {
+                          setModalOpen(true);
+                          setComplaintId(complaint.id);
+                        }}
+                        className="flex text-gray-500 hover:text-blue-500"
+                      >
+                        <RiShareForwardLine className="h-5 w-5" />
+                      </button>
+
+                      {/* ShareDialog Component */}
+                      {isModalOpen && (
+                        <ShareDialog
+                          setOpenModal={setModalOpen}
+                          id={complaintId}
+                        />
+                      )}
+                    </div>
+
                     <button
                       onClick={() => handleSupportComplaint(complaint.id)}
                       className="flex text-gray-500 hover:text-red-500"

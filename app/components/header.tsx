@@ -49,16 +49,17 @@ export const Header = () => {
   return (
     <nav className="sticky top-0 w-full border-b-2 border-gray-700 z-50 bg-black">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-1">
-          <div className="flex items-center">
-            <Link className="w-8 font-bold" href={"/"}>
-              <button className="h-10 w-10 rounded-full bg-black cursor-pointer">
+        <div className="flex justify-between py-1">
+          <Link className="font-bold" href={"/"}>
+            <div className="flex items-center cursor-pointer gap-3">
+              <button className="h-10 w-10 rounded-full bg-black">
                 <LiaUserSecretSolid className="h-full w-full text-gray-400" />
               </button>
-            </Link>
-          </div>
+              <h1 className="text-gray-200">COMPLAINTS.</h1>
+            </div>
+          </Link>
 
-          <div className="flex-1 px-8">
+          {/* <div className="flex-1 px-8">
             <div className="max-w-lg w-full mx-auto">
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -71,10 +72,10 @@ export const Header = () => {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex items-center space-x-4">
-            {/* <BiBell className="h-6 w-6 text-gray-500 cursor-pointer" /> */}
+          <div className="flex items-center space-x-2">
+            <BiBell className="h-7 w-7 text-gray-400 cursor-pointer" />
             <button
               onClick={connectWallet}
               className="h-8 w-8 rounded-full bg-black cursor-pointer"

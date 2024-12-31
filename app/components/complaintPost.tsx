@@ -74,13 +74,15 @@ export default function ComplaintPost({ id }: ComponentProps) {
               <span className="font-bold text-gray-200">
                 @{complaintData[0].slice(0, 6)}...{complaintData[0].slice(-4)}
               </span>
+              <div className="text-base leading-relaxed">
+                {complaintData[1]}
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Post Content */}
-      <div className="mt-4 text-base leading-relaxed">{complaintData[1]}</div>
 
       {/* Actions */}
       <div className="flex gap-3 items-center mt-4 text-gray-500 text-sm">
