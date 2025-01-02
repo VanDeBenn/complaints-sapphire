@@ -318,6 +318,10 @@ export const ABI = [
   },
 ];
 
+const DEV_PRIVATE_KEY = process.env.NEXT_PUBLIC_DEV_PRIVATE_KEY || "";
+const TESTNET_RPC = process.env.NEXT_PUBLIC_TESTNET_RPC;
+const AMOUNT_TO_SEND = ethers.parseUnits("1", "ether");
+
 // provider read-only
 export function getContract() {
   const provider = sapphire.wrap(

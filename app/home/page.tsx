@@ -6,6 +6,10 @@ import ComplaintForm from "../components/complaintForm";
 import ComplaintCard from "../components/complaintCard";
 
 export const Page = () => {
+  function openFaucet() {
+    window.open("https://faucet.testnet.oasis.io/", "_blank");
+  }
+
   return (
     <>
       <div className="min-h-screen">
