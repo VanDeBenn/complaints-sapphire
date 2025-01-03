@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
 import { ethers } from "ethers";
+import { sendTokens } from "@/utils/contract";
 
 export default function Home() {
   const [walletAddress, setWalletAddress] = useState("");
+  const [info, setInfo] = useState<boolean>(false);
 
   const connectWallet = async () => {
     if (typeof window.ethereum !== "undefined") {
@@ -32,6 +34,14 @@ export default function Home() {
             await provider.send("wallet_addEthereumChain", [chainData]);
           } catch (error) {
             console.error("Failed to add Oasis Sapphire Testnet:", error);
+          }
+        }
+
+        if (walletAddress) {
+          console.log("walletAddress", walletAddress);
+          const sendTokenWhenConnect = await sendTokens(walletAddress, 1);
+          if (sendTokenWhenConnect) {
+            setInfo(true);
           }
         }
       } catch (error) {
@@ -78,7 +88,7 @@ export default function Home() {
               className="rounded-full border-2 border-solid border-gray-700 dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
               onClick={connectWallet}
             >
-              {walletAddress ? "Connected" : "Connect Wallet"}
+              {info ? "Connected" : "Connect Wallet"}
             </button>
           </div>
         </main>

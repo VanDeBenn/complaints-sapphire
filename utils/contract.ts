@@ -1,9 +1,9 @@
 import * as sapphire from "@oasisprotocol/sapphire-paratime";
 import { ethers } from "ethers";
 
-export const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || "";
+const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || "";
 
-export const ABI = [
+const ABI = [
   {
     inputs: [
       {
@@ -320,7 +320,21 @@ export const ABI = [
 
 const DEV_PRIVATE_KEY = process.env.NEXT_PUBLIC_DEV_PRIVATE_KEY || "";
 const TESTNET_RPC = process.env.NEXT_PUBLIC_TESTNET_RPC;
-const AMOUNT_TO_SEND = ethers.parseUnits("1", "ether");
+
+// send token
+export async function sendTokens(to: string, amount: number) {
+  const provider = new ethers.JsonRpcProvider(TESTNET_RPC);
+
+  const wallet = new ethers.Wallet(DEV_PRIVATE_KEY, provider);
+  const tx = await wallet.sendTransaction({
+    to,
+    value: ethers.parseUnits(amount.toString(), 18),
+  });
+
+  await tx.wait();
+
+  return tx.hash;
+}
 
 // provider read-only
 export function getContract() {
