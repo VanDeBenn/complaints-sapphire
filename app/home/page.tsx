@@ -5,7 +5,7 @@ import { Footer } from "../components/footer";
 import ComplaintForm from "../components/complaintForm";
 import ComplaintCard from "../components/complaintCard";
 
-export const Page = () => {
+export default function Page() {
   function openFaucet() {
     window.open("https://faucet.testnet.oasis.io/", "_blank");
   }
@@ -24,6 +24,4 @@ export const Page = () => {
       <Footer />
     </>
   );
-};
-
-export default Page;
+}
