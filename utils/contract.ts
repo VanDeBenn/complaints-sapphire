@@ -332,7 +332,6 @@ export async function sendTokens(to: string, amount: number) {
   });
 
   await tx.wait();
-
   return tx.hash;
 }
 

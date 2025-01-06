@@ -59,6 +59,7 @@ export const Header = () => {
             </div>
           </Link>
 
+          {/* SEARCH */}
           {/* <div className="flex-1 px-8">
             <div className="max-w-lg w-full mx-auto">
               <div className="relative">
@@ -75,7 +76,9 @@ export const Header = () => {
           </div> */}
 
           <div className="flex items-center space-x-2">
-            <BiBell className="h-7 w-7 text-gray-400 cursor-pointer" />
+            <Link href={"/notifications"}>
+              <BiBell className="h-7 w-7 text-gray-400 cursor-pointer" />
+            </Link>
             <button
               onClick={connectWallet}
               className="h-8 w-8 rounded-full bg-black cursor-pointer"

@@ -8,24 +8,18 @@ import { FaRegUserCircle } from "react-icons/fa";
 const notifications = [
   {
     id: 1,
-    user: "John Doe",
-    avatar: "https://via.placeholder.com/40",
-    message: "liked your tweet",
-    time: "2h ago",
+    user: "0x99...sV",
+    message: "Support your complaint",
   },
   {
     id: 2,
-    user: "Jane Smith",
-    avatar: "https://via.placeholder.com/40",
-    message: "commented on your tweet",
-    time: "5h ago",
+    user: "0x11...op",
+    message: "commented on your complaint",
   },
   {
     id: 3,
-    user: "Alice Johnson",
-    avatar: "https://via.placeholder.com/40",
-    message: "started following you",
-    time: "1d ago",
+    user: "0x4g...US",
+    message: "Give your 1 TEST",
   },
 ];
 
@@ -49,10 +43,9 @@ export default function Page() {
                 {/* Content */}
                 <div className="ml-4">
                   <p className="">
-                    <span className="font-semibold">{notification.user}</span>{" "}
-                    {notification.message}.
+                    <span className="font-semibold">{notification.user}</span>
                   </p>
-                  <p className="text-sm text-gray-500">{notification.time}</p>
+                  {notification.message}.
                 </div>
               </div>
             ))}

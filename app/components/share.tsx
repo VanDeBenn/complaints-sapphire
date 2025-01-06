@@ -50,7 +50,7 @@ export default function ShareDialog({ setOpenModal, id }: ComponentProps) {
         >
           ✕
         </button>
-        <h3 className="text-lg font-bold">Share Result</h3>
+        <h3 className="text-lg font-bold">Share Post</h3>
 
         {/* Social Media Share Buttons */}
         <div className="mt-4 flex gap-3">

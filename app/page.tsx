@@ -1,13 +1,15 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { sendTokens } from "@/utils/contract";
+import toast from "react-hot-toast";
 
 export default function Home() {
   const [walletAddress, setWalletAddress] = useState("");
   const [info, setInfo] = useState<boolean>(false);
 
   const connectWallet = async () => {
+    console.log("klik");
     if (typeof window.ethereum !== "undefined") {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum);
@@ -36,16 +38,8 @@ export default function Home() {
             console.error("Failed to add Oasis Sapphire Testnet:", error);
           }
         }
-
-        if (walletAddress) {
-          console.log("walletAddress", walletAddress);
-          const sendTokenWhenConnect = await sendTokens(walletAddress, 1);
-          if (sendTokenWhenConnect) {
-            setInfo(true);
-          }
-        }
       } catch (error) {
-        console.error("Failed to connect wallet:", error);
+        alert(`Failed to connect wallet`);
       }
     } else {
       alert(
@@ -54,6 +48,49 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    if (walletAddress) {
+      try {
+        console.log("run..");
+        const sendTokenWhenConnect: any = sendTokens(walletAddress, 0.5);
+        console.log("sendTokenWhenConnect: ", sendTokenWhenConnect);
+        toast.promise(
+          sendTokenWhenConnect,
+          {
+            loading: "Processing transaction...",
+            success: (data: any) => (
+              <div>
+                Transaction Details:{" "}
+                <a
+                  href={`https://explorer.oasis.io/testnet/sapphire/tx/${data}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-700 no-underline"
+                >
+                  Here
+                </a>
+              </div>
+            ),
+            error: (err: any) => `Transaction failed: ${err.toString()}`,
+          },
+          {
+            style: {
+              minWidth: "250px",
+            },
+            success: {
+              duration: 10000,
+              icon: "🔥",
+            },
+          }
+        );
+        if (sendTokenWhenConnect) {
+          setInfo(true);
+        }
+      } catch (error) {}
+    }
+  }, [walletAddress]);
+
+  console.log("walletAddress: ", walletAddress);
   return (
     <div className="relative min-h-screen font-[family-name:var(--font-geist-sans)]">
       <div className="absolute top-0 left-0 w-full h-full -z-10">
@@ -85,7 +122,10 @@ export default function Home() {
               Start Now
             </a>
             <button
-              className="rounded-full border-2 border-solid border-gray-700 dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
+              disabled={info ? true : false}
+              className={`${
+                info && "cursor-not-allowed bg-[#1a1a1a]"
+              } rounded-full border-2 border-solid border-gray-700 dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44`}
               onClick={connectWallet}
             >
               {info ? "Connected" : "Connect Wallet"}
