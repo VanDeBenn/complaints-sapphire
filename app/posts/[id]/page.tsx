@@ -6,7 +6,7 @@ import ComplaintPost from "@/app/components/complaintPost";
 import CommentsComplaint from "@/app/components/commentsComplaint";
 import { usePathname } from "next/navigation";
 
-export default function page({ params }: { params: { id: string } }) {
+export default function page({ params }: { params: Promise<{ id: string }> }) {
   const pathname = usePathname();
   if (!pathname) {
     return;
