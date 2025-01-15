@@ -13,7 +13,7 @@ Complaints is a Web3 application that enables users to submit and manage digital
 - **Web3 Integration**: ethers.js v6
 - **Privacy Layer**: @oasisprotocol/sapphire-paratime
 - **Styling**: TailwindCSS
-- **Development**: TypeScript
+- **Development**: Vercel
 
 ## Prerequisites 📋
 

@@ -163,34 +163,7 @@ export default function ComplaintCard() {
             </div>
           ))
       ) : (
-        <div className="border-2 border-gray-700 rounded-lg shadow p-4">
-          <div className="flex items-start space-x-3">
-            <button className="h-8 w-8 rounded-full bg-black cursor-pointer">
-              <FaRegUserCircle className="h-full w-full text-gray-400" />
-            </button>
-            <div className="flex-1">
-              <div className="flex items-center space-x-2">
-                <span className="font-medium text-gray-200">@0x..</span>
-              </div>
-              <p className="mt-2">description</p>
-              <div className="relative mt-3 flex items-start gap-3">
-                <div>
-                  <button className="flex text-gray-500 hover:text-blue-500">
-                    <RiShareForwardLine className="h-5 w-5" />
-                  </button>
-                </div>
-
-                <button className="flex text-gray-500 hover:text-red-500">
-                  <BiHeart className="h-5 w-5" />
-                </button>
-
-                <button className="flex text-gray-500 hover:text-blue-500">
-                  <BiComment className="h-5 w-5" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div className="w-full h-full text-center">Loading...</div>
       )}
     </div>
   );
