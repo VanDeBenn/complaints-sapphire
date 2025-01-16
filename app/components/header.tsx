@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { BiSearchAlt, BiBell } from "react-icons/bi";
 import { FaRegUserCircle } from "react-icons/fa";
 import { LiaUserSecretSolid } from "react-icons/lia";
 import { ethers } from "ethers";
+import { sendTokens } from "@/utils/contract";
+import toast from "react-hot-toast";
 
 export const Header = () => {
   const [walletAddress, setWalletAddress] = useState("");
+  const [info, setInfo] = useState<boolean>(false);
+  const [profile, setProfile] = useState<string | null>(null);
 
   const connectWallet = async () => {
     if (typeof window.ethereum !== "undefined") {
@@ -37,6 +40,7 @@ export const Header = () => {
             console.error("Failed to add Oasis Sapphire Testnet:", error);
           }
         }
+        setInfo(true);
       } catch (error) {
         console.error("Failed to connect wallet:", error);
       }
@@ -46,11 +50,62 @@ export const Header = () => {
       );
     }
   };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedProfile = localStorage.getItem("acc");
+      setProfile(storedProfile);
+    }
+  }, [walletAddress]);
+
+  useEffect(() => {
+    if (walletAddress) {
+      localStorage.setItem("acc", walletAddress.slice(0, 4));
+      try {
+        const sendTokenWhenConnect: any = sendTokens(walletAddress, 0.5);
+        toast.promise(
+          sendTokenWhenConnect,
+          {
+            loading: "Processing transaction...",
+            success: (data: any) => (
+              <div>
+                Transaction Details:{" "}
+                <a
+                  href={`https://explorer.oasis.io/testnet/sapphire/tx/${data}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-300 no-underline"
+                >
+                  Here
+                </a>
+              </div>
+            ),
+            error: (err: any) => `Transaction failed: ${err.toString()}`,
+          },
+          {
+            style: {
+              minWidth: "250px",
+              background: "#333",
+              color: "#fff",
+            },
+            success: {
+              duration: 10000,
+              icon: "🔥",
+            },
+          }
+        );
+        if (sendTokenWhenConnect) {
+          setInfo(true);
+        }
+      } catch (error) {}
+    }
+  }, [walletAddress]);
+
   return (
     <nav className="sticky top-0 w-full border-b-2 border-gray-700 z-50 bg-black">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between py-1">
-          <Link className="font-bold" href={"/"}>
+          <Link className="w-full font-bold" href={"/"}>
             <div className="flex items-center cursor-pointer gap-3">
               <button className="h-10 w-10 rounded-full bg-black">
                 <LiaUserSecretSolid className="h-full w-full text-gray-400" />
@@ -59,32 +114,26 @@ export const Header = () => {
             </div>
           </Link>
 
-          {/* SEARCH */}
-          {/* <div className="flex-1 px-8">
-            <div className="max-w-lg w-full mx-auto">
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center">
-                  <BiSearchAlt className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  className="block w-full pl-10 pr-3 py-2 border border-gray-500 rounded-md leading-5 bg-black placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Search"
-                  type="search"
-                />
-              </div>
+          <div className="w-full flex items-center justify-end gap-3">
+            <div className="flex items-center gap-1">
+              <button
+                className="h-8 w-8 rounded-full bg-black cursor-pointer"
+                onClick={() => {
+                  if (info) {
+                    window.open(
+                      `https://explorer.oasis.io/testnet/sapphire/address/${walletAddress}`,
+                      "_blank",
+                      "noopener,noreferrer"
+                    );
+                  } else {
+                    connectWallet();
+                  }
+                }}
+              >
+                <FaRegUserCircle className="h-full w-full text-gray-400" />
+              </button>
+              <button onClick={() => connectWallet()}>{profile}</button>
             </div>
-          </div> */}
-
-          <div className="flex items-center space-x-2">
-            <Link href={"/notifications"}>
-              <BiBell className="h-7 w-7 text-gray-400 cursor-pointer" />
-            </Link>
-            <button
-              onClick={connectWallet}
-              className="h-8 w-8 rounded-full bg-black cursor-pointer"
-            >
-              <FaRegUserCircle className="h-full w-full text-gray-400" />
-            </button>
           </div>
         </div>
       </div>

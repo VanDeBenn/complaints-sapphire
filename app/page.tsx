@@ -7,9 +7,9 @@ import toast from "react-hot-toast";
 export default function Home() {
   const [walletAddress, setWalletAddress] = useState("");
   const [info, setInfo] = useState<boolean>(false);
+  const [hasClicked, setHasClicked] = useState(false);
 
   const connectWallet = async () => {
-    console.log("klik");
     if (typeof window.ethereum !== "undefined") {
       try {
         const provider = new ethers.BrowserProvider(window.ethereum);
@@ -50,10 +50,9 @@ export default function Home() {
 
   useEffect(() => {
     if (walletAddress) {
+      localStorage.setItem("acc", walletAddress.slice(0, 4));
       try {
-        console.log("run..");
         const sendTokenWhenConnect: any = sendTokens(walletAddress, 0.5);
-        console.log("sendTokenWhenConnect: ", sendTokenWhenConnect);
         toast.promise(
           sendTokenWhenConnect,
           {
@@ -65,7 +64,7 @@ export default function Home() {
                   href={`https://explorer.oasis.io/testnet/sapphire/tx/${data}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-700 no-underline"
+                  className="text-blue-300 no-underline"
                 >
                   Here
                 </a>
@@ -76,6 +75,8 @@ export default function Home() {
           {
             style: {
               minWidth: "250px",
+              background: "#333",
+              color: "#fff",
             },
             success: {
               duration: 10000,
@@ -90,7 +91,6 @@ export default function Home() {
     }
   }, [walletAddress]);
 
-  console.log("walletAddress: ", walletAddress);
   return (
     <div className="relative min-h-screen font-[family-name:var(--font-geist-sans)]">
       <div className="absolute top-0 left-0 w-full h-full -z-10">
@@ -122,13 +122,24 @@ export default function Home() {
               Start Now
             </a>
             <button
-              disabled={info ? true : false}
-              className={`${
-                info && "cursor-not-allowed bg-[#1a1a1a]"
-              } rounded-full border-2 border-solid border-gray-700 dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44`}
-              onClick={connectWallet}
+              className="rounded-full border-2 border-solid border-gray-700 dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
+              onClick={() => {
+                if (info) {
+                  window.open(
+                    `https://explorer.oasis.io/testnet/sapphire/address/${walletAddress}`,
+                    "_blank",
+                    "noopener,noreferrer"
+                  );
+                } else {
+                  connectWallet();
+                  if (!hasClicked) {
+                    toast("Click Again");
+                    setHasClicked(true);
+                  }
+                }
+              }}
             >
-              {info ? "Connected" : "Connect Wallet"}
+              {info ? "Check Wallet" : "Connect Wallet"}
             </button>
           </div>
         </main>
