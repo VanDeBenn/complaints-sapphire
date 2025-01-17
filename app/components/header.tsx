@@ -5,6 +5,7 @@ import { LiaUserSecretSolid } from "react-icons/lia";
 import { ethers } from "ethers";
 import { sendTokens } from "@/utils/contract";
 import toast from "react-hot-toast";
+import { RiMenuSearchLine } from "react-icons/ri";
 
 export const Header = () => {
   const [walletAddress, setWalletAddress] = useState("");
@@ -104,7 +105,7 @@ export const Header = () => {
   return (
     <nav className="sticky top-0 w-full border-b-2 border-gray-700 z-50 bg-black">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between py-1">
+        <div className="flex items-center justify-between py-1">
           <Link className="w-full font-bold" href={"/"}>
             <div className="flex items-center cursor-pointer gap-3">
               <button className="h-10 w-10 rounded-full bg-black">
@@ -114,7 +115,13 @@ export const Header = () => {
             </div>
           </Link>
 
-          <div className="w-full flex items-center justify-end gap-3">
+          <div className="flex items-center justify-end gap-3">
+            <Link
+              href={`https://explorer.oasis.io/testnet/sapphire/address/${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}`}
+              target="_blank"
+            >
+              <RiMenuSearchLine className="h-8 w-8 text-gray-400 cursor-pointer" />
+            </Link>
             <div className="flex items-center gap-1">
               <button
                 className="h-8 w-8 rounded-full bg-black cursor-pointer"

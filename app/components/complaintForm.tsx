@@ -18,8 +18,8 @@ export default function ComplaintForm() {
         {
           loading: "Submitting complaint...",
           success: (tx: any) => {
-            console.log("tx: ", tx);
-            console.log("hash: ", tx.hash);
+            tx.wait();
+            setComplaint("");
             return (
               <div>
                 Complaint submitted successfully! Details:{" "}
@@ -49,8 +49,6 @@ export default function ComplaintForm() {
         }
       );
 
-      await tx.wait();
-      setComplaint("");
       window.location.reload();
     } catch (error) {
       console.error("Error submitting complaint:", error);

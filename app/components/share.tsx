@@ -44,8 +44,8 @@ export default function ShareDialog({ setOpenModal, id }: ComponentProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-10 flex items-center justify-center">
-      <div className="border-2 border-gray-700 rounded-lg p-3 text-white modal-box relative bg-gray-900/40">
+    <div className="fixed inset-0 z-10 flex items-center justify-center bg-black/5">
+      <div className="border-2 border-gray-700 rounded-lg p-3 text-white modal-box relative bg-black">
         <button
           onClick={() => setOpenModal(false)}
           className="btn btn-sm btn-circle absolute right-2 top-2"
