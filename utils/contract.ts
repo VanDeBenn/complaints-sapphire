@@ -1,8 +1,8 @@
 import * as sapphire from "@oasisprotocol/sapphire-paratime";
 import { ethers } from "ethers";
-import ABI from "@/utils/contractABI.json";
 
 const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || "";
+const ABI = JSON.parse(process.env.NEXT_PUBLIC_CONTRACT_ABI || "[]");
 
 const DEV_PRIVATE_KEY = process.env.NEXT_PUBLIC_DEV_PRIVATE_KEY || "";
 const TESTNET_RPC = process.env.NEXT_PUBLIC_TESTNET_RPC;
