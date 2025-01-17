@@ -1,6 +1,7 @@
 "use client";
 import { getSignerContract } from "@/utils/contract";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { FaRegUserCircle } from "react-icons/fa";
 import { RiSendPlaneFill } from "react-icons/ri";
 
@@ -12,13 +13,48 @@ export default function ComplaintForm() {
       const signerContract = await getSignerContract();
       if (!signerContract) return;
 
-      const tx = await signerContract.submitComplaint(complaint);
+      const tx = await toast.promise(
+        signerContract.submitComplaint(complaint),
+        {
+          loading: "Submitting complaint...",
+          success: (tx: any) => {
+            console.log("tx: ", tx);
+            console.log("hash: ", tx.hash);
+            return (
+              <div>
+                Complaint submitted successfully! Details:{" "}
+                <a
+                  href={`https://explorer.oasis.io/testnet/sapphire/tx/${tx.hash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-300 no-underline"
+                >
+                  Here
+                </a>
+              </div>
+            );
+          },
+          error: "Failed to submit complaint.",
+        },
+        {
+          style: {
+            minWidth: "250px",
+            background: "#333",
+            color: "#fff",
+          },
+          success: {
+            duration: 10000,
+            icon: "🔥",
+          },
+        }
+      );
+
       await tx.wait();
-      alert("Complaint submitted successfully!");
       setComplaint("");
+      window.location.reload();
     } catch (error) {
       console.error("Error submitting complaint:", error);
-      alert("Failed to submit complaint.");
+      toast.error("An unexpected error occurred.");
     }
   };
 

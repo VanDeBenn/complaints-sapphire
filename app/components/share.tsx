@@ -29,7 +29,9 @@ interface ComponentProps {
 }
 
 export default function ShareDialog({ setOpenModal, id }: ComponentProps) {
-  const [Copied, setCopied] = useState(`http://localhost:3000/posts/${id}`);
+  const [Copied, setCopied] = useState(
+    `https://complaintsss.vercel.app/posts/${id}`
+  );
   const [isCopied, setIsCopied] = useState(false);
 
   const copiedToClipboard = () => {
@@ -54,35 +56,45 @@ export default function ShareDialog({ setOpenModal, id }: ComponentProps) {
 
         {/* Social Media Share Buttons */}
         <div className="mt-4 flex gap-3">
-          <WhatsappShareButton url={`http://localhost:3000/posts/${id}`}>
+          <WhatsappShareButton
+            url={`https://complaintsss.vercel.app/posts/${id}`}
+          >
             <WhatsappIcon className="w-10 h-10 rounded-full" />
           </WhatsappShareButton>
 
-          <FacebookShareButton url={`http://localhost:3000/posts/${id}`}>
+          <FacebookShareButton
+            url={`https://complaintsss.vercel.app/posts/${id}`}
+          >
             <FacebookIcon className="w-10 h-10 rounded-full" />
           </FacebookShareButton>
 
-          <TwitterShareButton url={`http://localhost:3000/posts/${id}`}>
+          <TwitterShareButton
+            url={`https://complaintsss.vercel.app/posts/${id}`}
+          >
             <TwitterIcon className="w-10 h-10 rounded-full" />
           </TwitterShareButton>
 
-          <TelegramShareButton url={`http://localhost:3000/posts/${id}`}>
+          <TelegramShareButton
+            url={`https://complaintsss.vercel.app/posts/${id}`}
+          >
             <TelegramIcon className="w-10 h-10 rounded-full" />
           </TelegramShareButton>
 
-          <RedditShareButton url={`http://localhost:3000/posts/${id}`}>
+          <RedditShareButton
+            url={`https://complaintsss.vercel.app/posts/${id}`}
+          >
             <RedditIcon className="w-10 h-10 rounded-full" />
           </RedditShareButton>
 
-          <EmailShareButton url={`http://localhost:3000/posts/${id}`}>
+          <EmailShareButton url={`https://complaintsss.vercel.app/posts/${id}`}>
             <EmailIcon className="w-10 h-10 rounded-full" />
           </EmailShareButton>
 
-          <VKShareButton url={`http://localhost:3000/posts/${id}`}>
+          <VKShareButton url={`https://complaintsss.vercel.app/posts/${id}`}>
             <VKIcon className="w-10 h-10 rounded-full" />
           </VKShareButton>
 
-          <LineShareButton url={`http://localhost:3000/posts/${id}`}>
+          <LineShareButton url={`https://complaintsss.vercel.app/posts/${id}`}>
             <LineIcon className="w-10 h-10 rounded-full" />
           </LineShareButton>
         </div>
@@ -90,10 +102,10 @@ export default function ShareDialog({ setOpenModal, id }: ComponentProps) {
         {/* Copy URL */}
         <div className="mt-4 flex items-center gap-2">
           <input
+            disabled={true}
             type="text"
-            value={Copied}
-            onChange={(e) => setCopied(e.target.value)}
-            className="input input-bordered w-full text-black px-2"
+            defaultValue={Copied}
+            className="w-full text-black px-2"
           />
           <button
             onClick={copiedToClipboard}
